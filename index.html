@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#173b2a">
+<title>DESI BITES | Online Shop</title>
+<style>
+:root{--green:#173b2a;--gold:#d9a441;--cream:#fffaf0;--ink:#20251f}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,"Noto Sans Bengali",sans-serif;background:#f7f7f2;color:var(--ink)}
+header{background:var(--green);color:white;padding:22px 16px;text-align:center}
+.logo{font-size:30px;font-weight:900;letter-spacing:2px}.tag{color:#f3d99d;margin-top:5px}
+nav{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;padding:12px;background:#10291d}
+nav a{color:white;text-decoration:none;font-size:14px}
+.hero{padding:42px 18px;text-align:center;background:linear-gradient(135deg,#fff4d9,#f7e7bd)}
+.hero h1{margin:0 0 10px;color:var(--green);font-size:30px}.hero p{max-width:600px;margin:0 auto 18px;line-height:1.6}
+.btn{display:inline-block;background:var(--gold);color:#1d211b;border:0;padding:11px 17px;border-radius:8px;font-weight:bold;text-decoration:none;cursor:pointer}
+main{max-width:1050px;margin:auto;padding:22px 14px}.section-title{text-align:center;color:var(--green);margin:12px 0 20px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.card{background:white;border-radius:13px;padding:17px;box-shadow:0 3px 14px #0000000d;border:1px solid #eee}
+.product-icon{height:115px;border-radius:10px;background:#fff4df;display:grid;place-items:center;font-size:58px}
+.card h3{margin:13px 0 5px}.muted{color:#6c746d;font-size:13px}.price{font-weight:bold;color:var(--green);margin:10px 0}
+.card button{width:100%}
+.cart,.checkout,.payment{background:white;border:1px solid #e7e7df;border-radius:13px;padding:18px;margin-top:22px}
+.cart-row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #eee}
+input,textarea,select{width:100%;padding:12px;border:1px solid #d7d7cf;border-radius:8px;margin:6px 0 12px;font:inherit}
+label{font-size:14px;font-weight:bold}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pay-options{display:flex;gap:15px;flex-wrap:wrap;margin:10px 0}
+.qr-wrap{text-align:center;margin-top:14px}.qr-wrap img{width:min(270px,85%);border:8px solid white;box-shadow:0 2px 12px #0002;border-radius:8px}
+.note{font-size:13px;color:#626b63;line-height:1.55}
+footer{background:var(--green);color:white;text-align:center;padding:24px 12px;margin-top:30px;line-height:1.8}
+@media(max-width:560px){.two{grid-template-columns:1fr}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">DESI BITES</div>
+  <div class="tag">স্বাদের ঠিকানা • YOUR TRUSTED FOOD STORE</div>
+</header>
+<nav>
+  <a href="#home">Home</a><a href="#products">Products</a><a href="#cart">Cart</a><a href="#contact">Contact</a>
+</nav>
+<section class="hero" id="home">
+  <h1>Welcome to DESI BITES</h1>
+  <p>মুচমুচে নিমকি, মিষ্টি ও দেশি খাবার—এখন অনলাইনেই অর্ডার করুন।</p>
+  <a class="btn" href="#products">Shop Now</a>
+</section>
+<main>
+  <h2 class="section-title" id="products">Our Products</h2>
+  <div class="products" id="productList"></div>
+
+  <section class="cart" id="cart">
+    <h2>🛒 Your Cart</h2>
+    <div id="cartItems"><p class="muted">এখনও কোনো পণ্য যোগ করা হয়নি।</p></div>
+    <h3 id="total">মোট: ₹0</h3>
+  </section>
+
+  <section class="checkout" id="checkout">
+    <h2>অর্ডারের তথ্য</h2>
+    <form id="orderForm">
+      <div class="two">
+        <div><label for="customer">আপনার নাম *</label><input id="customer" required placeholder="নাম লিখুন"></div>
+        <div><label for="phone">মোবাইল নম্বর *</label><input id="phone" required inputmode="numeric" pattern="[0-9]{10}" maxlength="10" placeholder="১০ সংখ্যার নম্বর"></div>
+      </div>
+      <label for="address">সম্পূর্ণ ঠিকানা *</label>
+      <textarea id="address" required rows="3" placeholder="বাড়ি, গ্রাম, পোস্ট, জেলা, PIN"></textarea>
+      <label>পেমেন্ট পদ্ধতি *</label>
+      <div class="pay-options">
+        <label><input type="radio" name="payment" value="UPI QR Payment" required style="width:auto"> UPI QR Payment</label>
+        <label><input type="radio" name="payment" value="Cash on Delivery"> Cash on Delivery</label>
+      </div>
+      <div class="payment" id="upiBox" hidden>
+        <h3>Scan & Pay – DESI BITES</h3>
+        <div class="qr-wrap"><img src="upi-qr.jpg" alt="DESI BITES UPI QR Code"></div>
+        <p class="note">QR স্ক্যান করে অর্ডারের সঠিক মোট টাকা পাঠান। পেমেন্ট করার পর নিচের WhatsApp Order বাটনে অর্ডার পাঠান। টাকা জমা হয়েছে কি না বিক্রেতা নিজে ব্যাংক/UPI অ্যাপে যাচাই করবেন।</p>
+      </div>
+      <p class="note">COD বেছে নিলে পণ্য হাতে পাওয়ার সময় টাকা দেবেন। ডেলিভারি/অর্ডার নিশ্চিত করতে DESI BITES আপনার সঙ্গে যোগাযোগ করতে পারে।</p>
+      <button class="btn" type="submit">WhatsApp-এ অর্ডার পাঠান</button>
+    </form>
+  </section>
+  <section id="contact" class="cart">
+    <h2>Contact DESI BITES</h2>
+    <p>📍 Kadikola Pocharmor, Raghunathganj, Murshidabad</p>
+    <p>WhatsApp / Phone: 9332746280 · 8710062397</p>
+  </section>
+</main>
+<footer>
+  <strong>DESI BITES</strong><br>
+  Fresh Taste • Quality • Trust<br>
+  Kadikola Pocharmor, Raghunathganj, Murshidabad
+</footer>
+<script>
+// পণ্যের নাম ও দাম এখানে নিজের মতো পরিবর্তন করুন।
+const products = [
+  {id:"nimki", name:"Nimki", detail:"30 g pack", price:5, icon:"🥨"},
+  {id:"laddu", name:"Besan Laddu", detail:"দাম WhatsApp-এ নিশ্চিত করুন", price:null, icon:"🟡"},
+  {id:"sandesh", name:"Sandesh", detail:"দাম WhatsApp-এ নিশ্চিত করুন", price:null, icon:"🍬"},
+  {id:"eggs", name:"Desi Chicken Eggs", detail:"দাম WhatsApp-এ নিশ্চিত করুন", price:null, icon:"🥚"}
+];
+const cart = {};
+const list = document.getElementById("productList");
+const money = n => "₹" + n;
+products.forEach(p=>{
+  const el=document.createElement("article"); el.className="card";
+  el.innerHTML=`<div class="product-icon">${p.icon}</div><h3>${p.name}</h3><div class="muted">${p.detail}</div><div class="price">${p.price===null?"দাম জানতে যোগাযোগ করুন":money(p.price)}</div><button class="btn" type="button" ${p.price===null?'disabled title="দাম আগে নির্ধারণ করুন"':''}>Add to Cart</button>`;
+  if(p.price!==null) el.querySelector("button").addEventListener("click",()=>{cart[p.id]=(cart[p.id]||0)+1;renderCart()});
+  list.appendChild(el);
+});
+function renderCart(){
+  const box=document.getElementById("cartItems"); box.innerHTML="";
+  let total=0, count=0;
+  products.forEach(p=>{
+    const q=cart[p.id]||0;if(!q)return;count+=q;total+=q*p.price;
+    const row=document.createElement("div");row.className="cart-row";
+    row.innerHTML=`<span>${p.name} × ${q}</span><strong>${money(q*p.price)}</strong>`;
+    const remove=document.createElement("button");remove.textContent="−";remove.className="btn";remove.style.padding="3px 10px";
+    remove.onclick=()=>{cart[p.id]--;if(cart[p.id]<=0)delete cart[p.id];renderCart()};
+    row.appendChild(remove);box.appendChild(row);
+  });
+  if(!count)box.innerHTML='<p class="muted">এখনও কোনো পণ্য যোগ করা হয়নি।</p>';
+  document.getElementById("total").textContent="মোট: "+money(total);
+}
+document.querySelectorAll('input[name="payment"]').forEach(r=>r.addEventListener("change",()=>{
+  document.getElementById("upiBox").hidden=document.querySelector('input[name="payment"]:checked').value!=="UPI QR Payment";
+}));
+document.getElementById("orderForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const items=products.filter(p=>cart[p.id]).map(p=>`${p.name} x ${cart[p.id]} = ₹${p.price*cart[p.id]}`).join("\n");
+  if(!items){alert("আগে Cart-এ অন্তত একটি পণ্য যোগ করুন।");return;}
+  const payment=document.querySelector('input[name="payment"]:checked')?.value;
+  if(!payment){alert("পেমেন্ট পদ্ধতি নির্বাচন করুন।");return;}
+  const total=products.reduce((s,p)=>s+(cart[p.id]||0)*(p.price||0),0);
+  const msg=`DESI BITES ORDER\nName: ${document.getElementById("customer").value}\nPhone: ${document.getElementById("phone").value}\nAddress: ${document.getElementById("address").value}\n\nItems:\n${items}\nTotal: ₹${total}\nPayment: ${payment}\n${payment==="UPI QR Payment"?"Customer says UPI payment made; please verify receipt in bank app.":""}`;
+  // প্রথম WhatsApp নম্বরটি অর্ডার গ্রহণের জন্য নির্ধারিত। চাইলে বদলান।
+  const whatsappNumber="919332746280";
+  window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`,"_blank");
+});
+</script>
+</body>
+</html>
